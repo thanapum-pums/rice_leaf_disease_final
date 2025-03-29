@@ -4,3 +4,8 @@ pandas
 scikit-learn
 tensorflow
 keras
+sklearn.metrics
+matplotlib.pyplot
+IPython.display
+os
+warnings
