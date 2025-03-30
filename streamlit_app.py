@@ -44,7 +44,7 @@ def main():
     st.info('This is a Rice Leaf Disease Predict using AI (CNN)')
 
     st.write("อัพโหลดรูปใบข้าว")
-    col1 = st.columns(1)
+    col1, col2 = st.columns(2)
     with col1:
         st.write("""
         - โรคขอบใบแห้ง (Bacterial Leaf Blight)
