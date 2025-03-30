@@ -51,6 +51,7 @@ def main():
         - โรคใบจุดสีน้ำตาล (Brown Spot)
         - โรคไหม้ (Leaf Blast)
         - โรคใบวงสีน้ำตาล (Leaf Scald)
+        - โรคกาบใบแห้ง (Sheath Blight)
         - ใบข้าวสุขภาพดี (Healthy Rice Leaf)
         """)
 
