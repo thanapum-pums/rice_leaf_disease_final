@@ -50,14 +50,17 @@ def main():
         - โรคขอบใบแห้ง (Bacterial Leaf Blight)
         - โรคใบจุดสีน้ำตาล (Brown Spot)
         - โรคไหม้ (Leaf Blast)
-        - โรคใบวงสีน้ำตาล (Leaf Scald)
-        - โรคกาบใบแห้ง (Sheath Blight)
-        - ใบข้าวสุขภาพดี (Healthy Rice Leaf)
         """)
+        with col2:
+           st.write("""
+           - โรคใบวงสีน้ำตาล (Leaf Scald)
+           - โรคกาบใบแห้ง (Sheath Blight)
+           - ใบข้าวสุขภาพดี (Healthy Rice Leaf)
+           """)
 
-        uploaded_file = st.file_uploader("เลือกอัพโหลดรูปใบข้าว", type=["jpg", "jpeg", "png"])
+           uploaded_file = st.file_uploader("เลือกอัพโหลดรูปใบข้าว", type=["jpg", "jpeg", "png"])
 
-        if uploaded_file is not None:
+           if uploaded_file is not None:
             try:
                 with st.spinner("กำลังประมวลผลรูปและทำนาย"):
                     #Preprocess ภาพ
