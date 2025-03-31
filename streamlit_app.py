@@ -14,12 +14,12 @@ class_names= ['Bacterial Leaf Blight',
 
 def preprocess_image(image):
     img = Image.open(image)
-    img = img.resize((224, 224))
-    img = tf.convert_to_tensor(img)
-    img = tf.cast(img, dtype=tf.float32)
-    img = img / 255.0
-    img = tf.expand_dims(img, axis=0)
-    return
+    img = img.resize((224, 224))  # Resize image to match model input
+    img = tf.convert_to_tensor(img)  # Convert image to tensor
+    img = tf.cast(img, dtype=tf.float32)  # Cast to float32
+    img = img / 255.0  # Normalize the image
+    img = tf.expand_dims(img, axis=0)  # Add batch dimension
+    return img  # Return the processed image
 
 def make_prediction(model, image):
     predictions = model.predict(image)
