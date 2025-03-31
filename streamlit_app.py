@@ -64,7 +64,7 @@ def main():
                     image = preprocess_image(uploaded_file)
 
                     #โหลดโมเดล
-                    model = tf.keras.models.load_model("rice_model.h5")
+                    model = tf.keras.models.load_model("rice_model_ff.5")
 
                     #ทำนายแสดงผล
                     predicted_class, second_highest_class, probabilities, sorted_indices = make_prediction(model, image)
