@@ -45,7 +45,7 @@ def main():
 
     st.write("อัพโหลดรูปใบข้าว")
     col1, col2 = st.columns(2)
-     with col1:
+    with col1:
         st.write("""
         - โรคขอบใบแห้ง (Bacterial Leaf Blight)
         - โรคใบจุดสีน้ำตาล (Brown Spot)
@@ -54,7 +54,7 @@ def main():
         - โรคกาบใบแห้ง (Sheath Blight)
         - ใบข้าวสุขภาพดี (Healthy Rice Leaf)
         """)
-      
+
         uploaded_file = st.file_uploader("เลือกอัพโหลดรูปใบข้าว", type=["jpg", "jpeg", "png"])
 
         if uploaded_file is not None:
