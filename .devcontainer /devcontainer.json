@@ -2,7 +2,6 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/python-3
 {
     "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
-    "initializeCommand": [".devcontainer/export-keys"],
     "customizations": {
         "codespaces": {
           "openFiles": [
