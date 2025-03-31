@@ -51,7 +51,7 @@ def main():
         st.write("""
         - โรคขอบใบแห้ง (Bacterial Leaf Blight)
         - โรคใบจุดสีน้ำตาล (Brown Spot)
-        - โรคไหม้ (Leaf Blast
+        - โรคไหม้ (Leaf Blast)
         """)
     with col2:
         st.write("""
