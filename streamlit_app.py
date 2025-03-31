@@ -2,7 +2,7 @@ import streamlit as st
 from PIL import Image
 import tensorflow as tf
 
-# กำหนด Class
+# Define class names globally
 class_names= ['Bacterial Leaf Blight',
  'Brown Spot',
  'Healthy Rice Leaf',
@@ -10,23 +10,25 @@ class_names= ['Bacterial Leaf Blight',
  'Leaf scald',
  'Sheath Blight']
 
-# Preprecess uploaded image
 
+# Function to preprocess the uploaded image
 def preprocess_image(image):
     img = Image.open(image)
-    img = img.resize((224, 224))  # Resize image to match model input
-    img = tf.convert_to_tensor(img)  # Convert image to tensor
-    img = tf.cast(img, dtype=tf.float32)  # Cast to float32
-    img = img / 255.0  # Normalize the image
+    img = img.resize((224, 224))  # Resize to model input size
+    img = tf.convert_to_tensor(img)  # Convert to TensorFlow tensor
+    img = tf.cast(img, dtype=tf.float32)  # Convert to float32
+    img = img / 255.0  # Normalize pixel values
     img = tf.expand_dims(img, axis=0)  # Add batch dimension
-    return img  # Return the processed image
+    return img
 
+
+# Function to make predictions using your loaded model
 def make_prediction(model, image):
-    predictions = model.predict(image)
-    sorted_indices = tf.argsort(predictions[0]) [::-1]
-    predictied_class = class_names[sorted_indices[0]]
+    predictions = model.predict(image)  # Pass the preprocessed image to your model
+    sorted_indices = tf.argsort(predictions[0])[::-1]  # Sort indices of predictions in descending order
+    predicted_class = class_names[sorted_indices[0]]
     second_highest_class = class_names[sorted_indices[1]]
-    return predictied_class, second_highest_class, predictions[0], sorted_indices
+    return predicted_class, second_highest_class, predictions[0], sorted_indices
 
 def get_disease_info (disease_name) :
     disease_info = {
@@ -39,41 +41,40 @@ def get_disease_info (disease_name) :
     }
     return disease_info.get(disease_name, "ไม่พบข้อมูล")
 
+
 def main():
     st.title('ตรวจโรคใบข้าวด้วย Machine Learning (Rice Leaf Disease Predict)')
     st.info('This is a Rice Leaf Disease Predict using AI (CNN)')
-
     st.write("อัพโหลดรูปใบข้าว")
     col1, col2 = st.columns(2)
     with col1:
         st.write("""
         - โรคขอบใบแห้ง (Bacterial Leaf Blight)
         - โรคใบจุดสีน้ำตาล (Brown Spot)
-        - โรคไหม้ (Leaf Blast)
+        - โรคไหม้ (Leaf Blast
         """)
-        with col2:
-           st.write("""
-           - โรคใบวงสีน้ำตาล (Leaf Scald)
-           - โรคกาบใบแห้ง (Sheath Blight)
-           - ใบข้าวสุขภาพดี (Healthy Rice Leaf)
-           """)
+    with col2:
+        st.write("""
+        - โรคใบวงสีน้ำตาล (Leaf Scald)
+        - โรคกาบใบแห้ง (Sheath Blight)
+        - ใบข้าวสุขภาพดี (Healthy Rice Leaf)
+        """)
 
-           uploaded_file = st.file_uploader("เลือกอัพโหลดรูปใบข้าว", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("เลือกอัพโหลดรูปใบข้าว", type=["jpg", "jpeg", "png"])
 
-           if uploaded_file is not None:
-            try:
-                with st.spinner("กำลังประมวลผลรูปและทำนาย"):
-                    #Preprocess ภาพ
-                    image = preprocess_image(uploaded_file)
+    if uploaded_file is not None:
+        try:
+            with st.spinner("กำลังประมวลผลรูปและทำนาย"):
+                # Preprocess the image
+                image = preprocess_image(uploaded_file)
 
-                    #โหลดโมเดล
-                    model = tf.keras.models.load_model("rice_model_ff.h5")
+                model = tf.keras.models.load_model("rice_model_ff.h5")
 
-                    #ทำนายแสดงผล
-                    predicted_class, second_highest_class, probabilities, sorted_indices = make_prediction(model, image)
-                    disease_info = get_disease_info(predicted_class)
+                # Make prediction and display results
+                predicted_class, second_highest_class, probabilities, sorted_indices = make_prediction(model, image)
+                disease_info = get_disease_info(predicted_class)
 
-                    st.subheader(
+                st.subheader(
                     f"รูปใบข้าวที่ปรากฎคือ   : {predicted_class} ({probabilities[sorted_indices[0]] * 100:.2f}%)")
                 st.write(
                     f"มีความเป็นไปได้ที่จะเป็น  : {second_highest_class} ({probabilities[sorted_indices[1]] * 100:.2f}%)")
@@ -81,7 +82,10 @@ def main():
                 st.subheader("ข้อมูลการป้องกันและกำจัด : "+predicted_class)
                 st.write(disease_info)
 
-            except Exception as e:
-                st.error(f"Error : {e}")
+
+
+        except Exception as e:
+            st.error(f"Error processing image: {e}")
+
 
 main()
