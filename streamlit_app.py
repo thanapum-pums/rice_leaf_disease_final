@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 import tensorflow as tf
+import tf_keras as k3
 
 # กำหนด Class
 class_names= ['Bacterial Leaf Blight',
@@ -64,7 +65,7 @@ def main():
                     image = preprocess_image(uploaded_file)
 
                     #โหลดโมเดล
-                    model = tf.keras.models.load_model("rice_model_ff.5")
+                    model = k3.models.load_model("rice_model_ff.5")
 
                     #ทำนายแสดงผล
                     predicted_class, second_highest_class, probabilities, sorted_indices = make_prediction(model, image)
